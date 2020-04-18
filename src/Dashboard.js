@@ -16,8 +16,10 @@ export default class Dashboard extends Component {
   }
 
   onInputChange = (event) => {
-    // console.log("Event", event.target.value);
-    this.setState({ ...this.state, name: event.target.value });
+    // console.log("Event name", event.target.name);
+    // console.log("Event value", event.target.value);
+    
+    this.setState({ ...this.state, [event.target.name] : event.target.value });
   };
 
   onButtonClick = () => {
@@ -29,7 +31,7 @@ export default class Dashboard extends Component {
       this.setState({ ...this.state, tableData: response });
     };
 
-    fetchUser(successfulReceived);
+    fetchUser(this.state.name, this.state.ibu, successfulReceived);
 
     // Promise based syntax
     // .then(response => {
@@ -56,6 +58,7 @@ export default class Dashboard extends Component {
                   className="form-control"
                   type="text"
                   placeholder="Name"
+                  name="name"
                   onChange={this.onInputChange}
                 ></input>
               </div>
@@ -65,6 +68,8 @@ export default class Dashboard extends Component {
                   className="form-control"
                   type="text"
                   placeholder="IBU"
+                  name="ibu"
+                  onChange={this.onInputChange}
                 ></input>
               </div>
 

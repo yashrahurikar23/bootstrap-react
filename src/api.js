@@ -1,15 +1,18 @@
 import axios from "axios";
 
-export const fetchUser = (callback) => {
+export const fetchUser = (name, ibu, callback) => {
+  console.log("name", name);
+  console.log("ibu", ibu);
+
   return axios
-    .get("https://jsonplaceholder.typicode.com/users/")
+    .get(`https://dummyuser.co.in/users/${ibu}?keyword=${name}`)
     .then(function (response) {
       // handle success
-      // console.log("Response", response.data);
+      console.log("Response", response.data);
       callback(response.data);
     })
     .catch(function (error) {
       // handle error
       // console.log("Error", error);
     });
-}
+};
