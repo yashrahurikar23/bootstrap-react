@@ -1,51 +1,46 @@
 import React, { Component } from "react";
 
-import { fetchUser } from "./api";
-
 import Heading from "./Heading";
+
+import { fetchDepartments } from "./api";
+
+import axios from "axios";
 
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      ibu: "",
-      department: "",
-      tableData: [],
+      departments: [],
+      locations: []
     };
   }
 
-  onInputChange = (event) => {
-    // console.log("Event name", event.target.name);
-    // console.log("Event value", event.target.value);
+  componentDidMount() {
+    fetchDepartments()
+      .then((response) => {
+        this.setState({ ...this.state, departments: response.data.department });
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      })
     
+    // axios.get(`http://www.mocky.io/v2/5ea2c52d4f00007a00d9f476`)
+    //   .then((response) => {
+    //     console.log("Response", response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //   });
+  }
+
+  onInputChange = (event) => {
     this.setState({ ...this.state, [event.target.name] : event.target.value });
   };
 
-  onButtonClick = () => {
-    console.log("Clicked!!");
-
-    // callback function
-    const successfulReceived = (response) => {
-      console.log("List of users", response);
-      this.setState({ ...this.state, tableData: response });
-    };
-
-    fetchUser(this.state.name, this.state.ibu, successfulReceived);
-
-    // Promise based syntax
-    // .then(response => {
-    //   console.log("Fetch user", response);
-    //   const userName = `${response.name.title} ${response.name.first}  ${response.name.last}`;
-    //   this.setState({ ...this.state, name: userName });
-    // })
-    // .catch(error => {
-    //   console.log("Fetch error", error);
-    // })
-  };
+  onButtonClick = () => {};
 
   render() {
-    console.log("State", this.state);
+    // console.log("State", this.state);
     return (
       <div>
         <div className="container">
@@ -53,7 +48,7 @@ export default class Dashboard extends Component {
 
           <div className="col-lg-12 border border-secondary rounded-sm pt-3">
             <div className="row">
-              <div className="col-lg-2">
+              {/* <div className="col-lg-2">
                 <input
                   className="form-control"
                   type="text"
@@ -71,7 +66,7 @@ export default class Dashboard extends Component {
                   name="ibu"
                   onChange={this.onInputChange}
                 ></input>
-              </div>
+              </div> */}
 
               <div className="col-lg-2">
                 <input
@@ -87,26 +82,14 @@ export default class Dashboard extends Component {
                     className="form-control"
                     id="exampleFormControlSelect1"
                   >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="col-lg-2">
-                <div className="form-group">
-                  <select
-                    className="form-control"
-                    id="exampleFormControlSelect1"
-                  >
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {this.state.departments.map((department) => {
+                      console.log("Department", department);
+                      return (
+                        <React.Fragment key={department.id}>
+                          <option>{department.name}</option>
+                        </React.Fragment>
+                      )
+                    })}
                   </select>
                 </div>
               </div>
@@ -147,7 +130,7 @@ export default class Dashboard extends Component {
                 </thead>
 
                 <tbody>
-                  {this.state.tableData.map((row, index) => (
+                  {/* {this.state.tableData.map((row, index) => (
                     <React.Fragment key={row.id}>
                       <tr className="border border-secondary rounded-sm">
                         <th scope="row">{row.id}</th>
@@ -173,7 +156,7 @@ export default class Dashboard extends Component {
                         </td>
                       </tr>
                     </React.Fragment>
-                  ))}
+                  ))} */}
                 </tbody>
               </table>
             </div>
