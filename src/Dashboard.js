@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navigation from "./Navigation";
 import Search from "./Search";
-import Line from "./Table";
+import Table from "./Table";
 
 import axios from "axios";
 
@@ -10,9 +10,7 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       name: "",
-      department: "",
-      status: "",
-      users: [],
+      users: []
     };
   }
 
@@ -52,7 +50,7 @@ export default class Dashboard extends Component {
           </div>
 
           <div>
-            <Line />
+            <Table users={this.state.users} />
           </div>
         </div>
       </React.Fragment>

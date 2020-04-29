@@ -3,6 +3,7 @@ import { Table, Card } from 'react-bootstrap';
 
 export default class Line extends Component {
   render() {
+    console.log("table props", this.props);
     return (
       <Card className="d-flex align-items-center mt-5 example-parent">
         <Card.Body>
@@ -22,9 +23,19 @@ export default class Line extends Component {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  
-                </tr>
+                  {this.props.users.map((user) => (
+                    <React.Fragment key={user.id}>
+                      <tr>
+                        <td>{user.id}</td>
+                        <td>{user.department}</td>
+                        <td>{user.employee_name}</td>
+                        <td>{user.employee}</td>
+                        <td>{user.date}</td>
+                        <td>{user.status}</td>
+                        <td>{user.action[0]}</td>
+                      </tr>
+                    </React.Fragment>
+                  ))}
               </tbody>
             </Table>
           </Card.Text>
