@@ -9,14 +9,19 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
-    }
+      name: ""
+    };
   }
 
-  onClickOfSearchBtn = (e) => {
+  onInputChange = (event) => {
+    console.log("Input changed!!", event.target.value);
+    this.setState({ name: event.target.value });
+  };
+
+  onClickOfSearchBtn = (event) => {
     console.log("Button clicked!!");
     // Make the API call
-  }
+  };
 
   render() {
     console.log("state", this.state);
@@ -27,7 +32,11 @@ export default class Dashboard extends Component {
         </div>
         <div className="container-fluid mt-20">
           <div>
-            <Search onClickOfSearchBtn={this.onClickOfSearchBtn} />
+            <Search
+              onClickOfSearchBtn={this.onClickOfSearchBtn}
+              onInputChange={this.onInputChange}
+              name={this.state.name}
+            />
           </div>
 
           <div>

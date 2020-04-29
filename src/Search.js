@@ -22,25 +22,11 @@ export default class Search extends Component {
               <Form>
                 <Form.Row>
                   <Col>
-                    <Form.Control placeholder="ID" />
-                  </Col>
-
-                  <Col>
-                    {/* <DateRangePicker showDropdowns>
-                      <Form.Control placeholder="DD/MM/YYYY" />
-                    </DateRangePicker> */}
-                  </Col>
-                  <Col>
                     <Form.Control
-                      as="select"
-                    ></Form.Control>
-                  </Col>
-                  <Col>
-                    <Form.Control
-                      as="select"
-                      value="status"
-                      onChange="this.handleLocChange"
-                    ></Form.Control>
+                      type="text"
+                      placeholder="Please enter a name"
+                      onChange={this.props.onInputChange}
+                    />
                   </Col>
 
                   <Button
