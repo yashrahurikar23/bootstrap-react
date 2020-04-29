@@ -10,7 +10,9 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       name: "",
-      users: []
+      department: "",
+      status: "",
+      users: [],
     };
   }
 
@@ -20,13 +22,17 @@ export default class Dashboard extends Component {
   };
 
   onClickOfSearchBtn = (event) => {
-    console.log("Button clicked!!");
     // Make the API call
-    axios.get("http://www.mocky.io/v2/5ea99559340000980d3f0506")
-      .then(response => {
-        this.setState({ users: response.data.users })
+    console.log("Name in button", this.state.name);
+
+    axios
+      .get("http://www.mocky.io/v2/5ea99559340000980d3f0506", {
+        params: { name: this.state.name, department: this.state.department }
       })
-      .catch(error => console.log("error", error));
+      .then((response) => {
+        this.setState({ users: response.data.users });
+      })
+      .catch((error) => console.log("error", error));
   };
 
   render() {
