@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Card, Form, Col, Row, Button } from "react-bootstrap";
 
+import DatePicker from "./DatePicker";
+
 export default class Search extends Component {
   render() {
     console.log("Search props", this.props);
@@ -38,6 +40,8 @@ export default class Search extends Component {
                     />
                   </Col>
                   <p>{this.props.errorMessage}</p>
+
+                  <DatePicker />
 
                   <Button
                     variant="primary"

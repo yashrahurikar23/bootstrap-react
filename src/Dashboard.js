@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navigation from "./Navigation";
 import Search from "./Search";
 import Table from "./Table";
+import DatePicker from "./DatePicker";
 
 import axios from "axios";
 
@@ -43,6 +44,7 @@ export default class Dashboard extends Component {
     console.log("state", this.state);
     return (
       <React.Fragment>
+
         <div>
           <Navigation />
         </div>
