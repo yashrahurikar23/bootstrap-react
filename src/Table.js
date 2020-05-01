@@ -5,7 +5,7 @@ export default class Line extends Component {
   render() {
     console.log("table props", this.props);
     return (
-      <Card className="d-flex align-items-center mt-5 example-parent">
+      <Card className="d-flex mt-5">
         <Card.Body>
           <Card.Title>Line</Card.Title>
           <Card.Text>

@@ -9,12 +9,13 @@ export default class Search extends Component {
 
     return (
       <React.Fragment>
-        <div className="d-flex align-items-center mt-3 mb-5 example-parent">
-          <Row>
-            <Col>
-              <h3>Claims Listing</h3>
-            </Col>
-          </Row>
+        <div className="d-flex align-items-center justify-content-between mt-3 mb-5 example-parent">
+          <Col className="d-flex justify-content-start">
+            <h3 className="yellow">Claims Listing</h3>
+          </Col>
+          <Button variant="primary" onClick={this.props.onClickOfSearchBtn}>
+            Search
+          </Button>
         </div>
 
         <Card>

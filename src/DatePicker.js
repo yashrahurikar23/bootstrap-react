@@ -1,19 +1,37 @@
 import React from "react";
-import DateRangePicker from "react-bootstrap-daterangepicker";
-import "bootstrap-daterangepicker/daterangepicker.css";
-import { Form, Button } from "react-bootstrap";
+import { addDays } from "date-fns";
+import { useState } from "react";
 
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+
+import { DateRange } from 'react-date-range';
 
 export default function DatePicker() {
+  const [state, setState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: 'selection'
+    }
+  ]);
+
+  const dateRangeHandler = (event) => {
+    console.log("Start date", event.selection.startDate)
+    console.log("End date", event.selection.endDate)
+
+    setState([event.selection])
+  }
+
   return (
     <React.Fragment>
-      <DateRangePicker as="select">
-      <Button>
-        <i className="fa fa-calendar"/> &nbsp;
-        <span></span>
-        <i className="fa fa-angle-down"/>
-    </Button>
-      </DateRangePicker>
+      <DateRange
+        editableDateInputs={true}
+        onChange={dateRangeHandler}
+        moveRangeOnFirstSelection={false}
+        ranges={state}
+      />
+      ;
     </React.Fragment>
   );
 }
