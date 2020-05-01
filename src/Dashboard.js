@@ -10,7 +10,8 @@ export default class Dashboard extends Component {
     super(props);
     this.state = {
       name: "",
-      users: []
+      users: [],
+      errorMessage: ""
     };
   }
 
@@ -22,6 +23,11 @@ export default class Dashboard extends Component {
   onClickOfSearchBtn = (event) => {
     // Make the API call
     console.log("Name in button", this.state.name);
+
+    if(this.state.name === "") {
+      this.setState({ errorMessage: "Mandatory field!!" });
+      return false
+    }
 
     axios
       .get("http://www.mocky.io/v2/5ea99559340000980d3f0506", {
@@ -46,6 +52,7 @@ export default class Dashboard extends Component {
               onClickOfSearchBtn={this.onClickOfSearchBtn}
               onInputChange={this.onInputChange}
               name={this.state.name}
+              errorMessage={this.state.errorMessage}
             />
           </div>
 

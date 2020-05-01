@@ -28,6 +28,16 @@ export default class Search extends Component {
                       onChange={this.props.onInputChange}
                     />
                   </Col>
+                  <p>{this.props.errorMessage}</p>
+
+                  <Col>
+                    <Form.Control
+                      type="text"
+                      placeholder="Please enter the employee ID"
+                      onChange={this.props.onInputChange}
+                    />
+                  </Col>
+                  <p>{this.props.errorMessage}</p>
 
                   <Button
                     variant="primary"
