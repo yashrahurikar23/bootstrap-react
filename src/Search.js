@@ -42,7 +42,31 @@ export default class Search extends Component {
                   </Col>
                   <p>{this.props.errorMessage}</p>
 
-                  <DatePicker />
+                  <Col>
+                    <Form.Control
+                      type="text"
+                      placeholder="Please enter the employee ID"
+                      onChange={this.props.onInputChange}
+                    />
+                  </Col>
+
+                  <Col>
+                    <Form.Control
+                      type="text"
+                      placeholder="Please enter the employee ID"
+                      onChange={this.props.onInputChange}
+                    />
+                  </Col>
+
+                  <Col>
+                    <Form.Control
+                      type="text"
+                      placeholder="Please enter the employee ID"
+                      onChange={this.props.onInputChange}
+                    />
+                  </Col>
+
+                  {/* <DatePicker /> */}
 
                   <Button
                     variant="primary"

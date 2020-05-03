@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Table, Card } from 'react-bootstrap';
+import { Table, Card, Button } from "react-bootstrap";
 
 export default class Line extends Component {
   render() {
@@ -9,7 +9,6 @@ export default class Line extends Component {
         <Card.Body>
           <Card.Title>Line</Card.Title>
           <Card.Text>
-
             <Table striped>
               <thead>
                 <tr>
@@ -23,19 +22,23 @@ export default class Line extends Component {
                 </tr>
               </thead>
               <tbody>
-                  {this.props.users.map((user) => (
-                    <React.Fragment key={user.id}>
-                      <tr>
-                        <td>{user.id}</td>
-                        <td>{user.department}</td>
-                        <td>{user.employee_name}</td>
-                        <td>{user.employee}</td>
-                        <td>{user.date}</td>
-                        <td>{user.status}</td>
-                        <td>{user.action[0]}</td>
-                      </tr>
-                    </React.Fragment>
-                  ))}
+                {this.props.users.map((user) => (
+                  <React.Fragment key={user.id}>
+                    <tr>
+                      <td>{user.id}</td>
+                      <td>{user.department}</td>
+                      <td>{user.employee_name}</td>
+                      <td>{user.employee}</td>
+                      <td>{user.date}</td>
+                      <td>{user.status}</td>
+                      <td>
+                        <Button onClick={(event) => this.props.onViewClick(event, user)}>
+                          View Details
+                        </Button>
+                      </td>
+                    </tr>
+                  </React.Fragment>
+                ))}
               </tbody>
             </Table>
           </Card.Text>

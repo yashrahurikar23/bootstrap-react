@@ -25,10 +25,10 @@ export class Dashboard extends Component {
     // Make the API call
     console.log("Name in button", this.state.name);
 
-    if(this.state.name === "") {
-      this.setState({ errorMessage: "Mandatory field!!" });
-      return false
-    }
+    // if(this.state.name === "") {
+    //   this.setState({ errorMessage: "Mandatory field!!" });
+    //   return false
+    // }
 
     axios
       .get("http://www.mocky.io/v2/5ea99559340000980d3f0506", {
@@ -40,7 +40,12 @@ export class Dashboard extends Component {
       .catch((error) => console.log("error", error));
   };
 
+  onViewClick = (event, userDetails) => {
+    this.props.history.push(`/users/${userDetails.id}`);
+  }
+  
   render() {
+    console.log("props", this.props);
     console.log("state", this.state);
     return (
       <React.Fragment>
@@ -48,6 +53,7 @@ export class Dashboard extends Component {
         <div>
           <Navigation />
         </div>
+
         <div className="container-fluid mt-20">
           <div>
             <Search
@@ -59,7 +65,7 @@ export class Dashboard extends Component {
           </div>
 
           <div>
-            <Table users={this.state.users} />
+            <Table users={this.state.users} onViewClick={this.onViewClick} />
           </div>
         </div>
       </React.Fragment>

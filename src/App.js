@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import { Dashboard } from "./Dashboard";
+import UserDetails from "./UserDetails";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/users/:userId" component={UserDetails} />
         </Switch>
       </Router>
     </div>
