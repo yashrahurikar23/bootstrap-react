@@ -9,7 +9,7 @@ export default class UserDetails extends Component {
     this.state = {
       user: {},
       lineDetails: [],
-      editedData: [],
+      editedData: []
     };
   }
 

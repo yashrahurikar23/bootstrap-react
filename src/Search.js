@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, Form, Col, Row, Button } from "react-bootstrap";
+import { Formik } from "formik";
 
 import DatePicker from "./DatePicker";
 
@@ -22,60 +23,93 @@ export default class Search extends Component {
           <Card.Body>
             <Card.Title>Search</Card.Title>
             <Card.Text>
-              <Form>
-                <Form.Row>
-                  <Col>
-                    <Form.Control
-                      type="text"
-                      placeholder="Please enter a name"
-                      onChange={this.props.onInputChange}
-                    />
-                  </Col>
-                  <p>{this.props.errorMessage}</p>
+              <Formik
+                initialValues={{
+                  id: "",
+                  employeeId: "",
+                  dateRange: "",
+                  location: "",
+                  status: "",
+                }}
+                validate={(values) => {
+                  const errors = {};
+                  console.log("values ", values);
+                  if (!values.id && !values.employeeId) {
+                    errors.mandatory = true;
+                  }
+                  return errors;
+                }}
+                onSubmit={(values) => {
+                  console.log("values:", values);
+                  // this.props.onClickSearch(values);
+                  this.props.onClickOfSearchBtn();
+                }}
+              >
+                {({ values, errors, handleChange, handleSubmit }) => {
+                  console.log("Errors inside", errors);
+                  return (
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Row>
+                        <Col>
+                          <Form.Control
+                            type="text"
+                            placeholder="ID"
+                            name="id"
+                            onChange={handleChange}
+                            value={values.id}
+                          />
+                          {errors.mandatory ? (
+                            <p className="error-message">Required</p>
+                          ) : null}
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            placeholder="Employee ID"
+                            name="employeeId"
+                            onChange={handleChange}
+                            value={values.employeeId}
+                          />
+                          {errors.mandatory ? (
+                            <p className="error-message">Required</p>
+                          ) : null}
+                        </Col>
 
-                  <Col>
-                    <Form.Control
-                      type="text"
-                      placeholder="Please enter the employee ID"
-                      onChange={this.props.onInputChange}
-                    />
-                  </Col>
-                  <p>{this.props.errorMessage}</p>
+                        <Col>
+                          <Form.Control
+                            as="select"
+                            name="financialLocation"
+                            onChange={handleChange}
+                          >
+                            {/* {this.props.location.map((location) => (
+                            <option key={location.id}>{location}</option>
+                          ))} */}
+                            <option key="1">Pune</option>
+                            <option key="2">Mumbai</option>
+                            <option key="3">Delhi</option>
+                          </Form.Control>
+                        </Col>
+                        <Col>
+                          <Form.Control
+                            as="select"
+                            name="statuses"
+                            onChange={handleChange}
+                          >
+                            {/* {this.props.statuses.map((statuses) => (
+                            <option key={statuses.id}>{statuses}</option>
+                          ))} */}
+                            <option key="1">Inactive</option>
+                            <option key="2">Active</option>
+                          </Form.Control>
+                        </Col>
 
-                  <Col>
-                    <Form.Control
-                      type="text"
-                      placeholder="Please enter the employee ID"
-                      onChange={this.props.onInputChange}
-                    />
-                  </Col>
-
-                  <Col>
-                    <Form.Control
-                      type="text"
-                      placeholder="Please enter the employee ID"
-                      onChange={this.props.onInputChange}
-                    />
-                  </Col>
-
-                  <Col>
-                    <Form.Control
-                      type="text"
-                      placeholder="Please enter the employee ID"
-                      onChange={this.props.onInputChange}
-                    />
-                  </Col>
-
-                  {/* <DatePicker /> */}
-
-                  <Button
-                    variant="primary"
-                    onClick={this.props.onClickOfSearchBtn}
-                  >
-                    Search
-                  </Button>
-                </Form.Row>
-              </Form>
+                        <Button variant="primary" type="submit">
+                          Search
+                        </Button>
+                      </Form.Row>
+                    </Form>
+                  );
+                }}
+              </Formik>
             </Card.Text>
           </Card.Body>
         </Card>
