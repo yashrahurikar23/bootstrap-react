@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Card, Form, Col, Row, Button, Table } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import AttachmentsModal from "./AttachmentsModal";
 
 export default class UserDetails extends Component {
   constructor(props) {
@@ -9,7 +10,9 @@ export default class UserDetails extends Component {
     this.state = {
       user: {},
       lineDetails: [],
-      editedData: []
+      editedData: [],
+      show: false,
+      currentAttachments: [],
     };
   }
 
@@ -28,7 +31,7 @@ export default class UserDetails extends Component {
 
     // User details
     axios
-      .get("http://www.mocky.io/v2/5eb689543100000d00c89f1f")
+      .get("http://www.mocky.io/v2/5ebd6c9a31000053505b13fc")
       .then((response) => {
         console.log("Response", response);
         this.setState({
@@ -54,13 +57,15 @@ export default class UserDetails extends Component {
 
     const requestBody = {
       employeeId: this.state.user.id,
-      details: detailsArray
+      details: detailsArray,
     };
 
-    axios.put("http://www.", requestBody)
-      .then(response => {
+    axios
+      .put("http://www.", requestBody)
+      .then((response) => {
         console.log("response", response);
-      }).catch(error => {
+      })
+      .catch((error) => {
         console.log("Error", error.response);
       });
   };
@@ -110,6 +115,25 @@ export default class UserDetails extends Component {
     lineDetails[entryIndex] = entry;
 
     this.setState(stateClone);
+  };
+
+  handleModalOpen = (e, lineDetail) => {
+    console.log("Line detail", lineDetail);
+    this.setState({
+      ...this.state,
+      show: true,
+      currentAttachments: lineDetail.attachments,
+      currentUserProfile: lineDetail.user_profile,
+    });
+  };
+
+  handleModalClose = () => {
+    this.setState({
+      ...this.state,
+      show: false,
+      currentAttachments: [],
+      currentUserProfile: ""
+    });
   };
 
   render() {
@@ -256,7 +280,7 @@ export default class UserDetails extends Component {
                       <th>Department</th>
                       <th>Date</th>
                       <th>Project Id</th>
-                      <th>Status</th>
+                      <th>Attachment</th>
                       <th>Experience</th>
                       <th>Date</th>
                     </tr>
@@ -269,7 +293,14 @@ export default class UserDetails extends Component {
                         <td>{lineDetail.department}</td>
                         <td>{lineDetail.date}</td>
                         <td>{lineDetail.projectId}</td>
-                        <td>{lineDetail.status}</td>
+                        <td>
+                          <Button
+                            variant="link"
+                            onClick={(e) => this.handleModalOpen(e, lineDetail)}
+                          >
+                            Link
+                          </Button>
+                        </td>
                         <td>
                           <Form.Control
                             size="sm"
@@ -304,6 +335,12 @@ export default class UserDetails extends Component {
               </Card.Text>
             </Card.Body>
           </Card>
+          <AttachmentsModal
+            show={this.state.show}
+            handleClose={this.handleModalClose}
+            attachments={this.state.currentAttachments}
+            userProfile={this.state.currentUserProfile}
+          />
         </div>
       </React.Fragment>
     );
