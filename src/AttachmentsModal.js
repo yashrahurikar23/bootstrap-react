@@ -1,16 +1,14 @@
 import React, { Component } from "react";
+import { Modal, Button } from "react-bootstrap";
 
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
+const base_url = "www.google.com";
 
-const BASE_URL = "https://www.techmahindra.com";
-
-export default class AttachmentsModal extends Component {
+export default class AttachmentModal extends Component {
   render() {
-    const { attachments, userProfile } = this.props;
+    const { attachments } = this.props;
 
     const linksList = attachments.map((attachment) => {
-      return `${BASE_URL}/${userProfile}/${attachment}`;
+      return `${base_url}/${attachment.number.text}/${attachment.attachment.text}/${attachment.profile.text}`;
     });
 
     console.log("Links list", linksList);
@@ -25,7 +23,9 @@ export default class AttachmentsModal extends Component {
             <p>These are the attachments related to this project</p>
             {linksList.map((link, index) => (
               <React.Fragment>
-                <a href={link} target="_blank">{link}</a>
+                <a href={link} target="_blank" download>
+                  {link}
+                </a>
                 <br />
               </React.Fragment>
             ))}
